@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OmniauthAuth0Qs</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'auth0-theme.min', media: 'all'  %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+    <div class="nav-container">
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+          <div class="navbar-brand logo"></div>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a href="/" class="nav-link">Home</a>
+              </li>
+              <li class="nav-item">
+                <% if logged_in? %>
+                  <%= link_to 'Logout', 'auth/logout', :class => 'nav-link', method: :post %>
+                <% else %>
+                  <%= link_to 'Login', 'auth/auth0', :class => 'nav-link', method: :post %>
+                <% end %>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav d-none d-md-block">
+
+              <% if logged_in? %>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="/profile">
+                    <img src="<%= avatar_url %>>" alt="Profile picture" class="nav-user-profile">
+                  </a>
+                </li>
+
+              <% else %>
+
+                <!-- Login button: show if NOT authenticated -->
+                <li class="nav-item">
+                  <%= link_to 'Login', 'auth/auth0', :class => 'btn btn-primary btn-margin', method: :post %>
+                </li>
+                <!-- / Login button -->
+
+              <% end %>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container mt-5">
+      <%= yield %>
+    </div>
+  </body>
+</html>
